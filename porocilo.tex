@@ -1,15 +1,35 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper, 12pt]{book}
+%\documentclass[a4paper, 12pt, draft]{book}  Nalogo preverite tudi z opcijo draft, ki vam bo pokazala, katere vrstice so predolge!
+
+\usepackage[utf8x]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
+\usepackage[slovene,english]{babel}    % naloži, med drugim, slovenske delilne vzorce
+\usepackage[pdftex]{graphicx}  % omogoča vlaganje slik različnih formatov
+\usepackage{fancyhdr}          % poskrbi, na primer, za glave strani
+\usepackage{amssymb}           % dodatni simboli
+\usepackage{amsmath}           % eqref, npr.
+%\usepackage{hyperxmp}
+\usepackage[hyphens]{url}  % dodal Solina
+\usepackage{comment}       % dodal Solina
+
+\usepackage[pdftex, colorlinks=true,
+						citecolor=black, filecolor=black, 
+						linkcolor=black, urlcolor=black,
+						pagebackref=false, 
+						pdfproducer={LaTeX}, pdfcreator={LaTeX}, hidelinks]{hyperref}
+
+\usepackage{color}       % dodal Solina
+\usepackage{soul}       % dodal Solina
 
 % Use the graphicx package for image inclusion
-\usepackage{graphicx}
+% \usepackage{graphicx}
 
 % Page setup
-\usepackage{geometry}
+% \usepackage{geometry}
 
 \newcommand{\autfont}{\Large}
 \newcommand{\titfont}{\LARGE\bf}
 
-\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+% \geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
 
 % Title and author setup
 \title{\vspace{-4cm}Seminarska naloga za Računalniško grafiko\\[0.5cm] \huge \textbf{Frodo's Nightmares} \vspace{-1cm}}
@@ -18,45 +38,27 @@
 
 \begin{document}
 
-\begin{titlepage}
-    \begin{center}
-        \vspace*{2cm}
-
-        \textbf{\Huge{Seminarska naloga za Ra\v{c}unalni\v{s}ko grafiko}}
-
-        \vspace{0.5cm}
-
-        \textbf{\LARGE{Frodo's Nightmares}}
-
-        \vfill
-
-        \hspace*{-1.5cm} Mentor: izr. prof. dr. Iztok Lebar Bajec
-        \hspace*{2.5cm} Ljubljana, januar 2025
-        \hspace*{2cm} Tim Thuma, 63230333, Luka Hribar, 63230109, Tilen Medved, 
-    \end{center}
-\end{titlepage}
-
-
-
 \thispagestyle{empty}%
 \begin{center}
  {\large\sc Univerza v Ljubljani\\%
    Fakulteta za računalništvo in informatiko}%
  \vskip 10em%
-%  {\autfont \tauthor\par}%
-%  {\titfont fdsoj \par}%
- {\vskip 3em \textsc{DIPLOMSKO DELO\\[5mm]         % dodal Solina za ostale študijske programe
-%    VISOKOŠOLSKI STROKOVNI ŠTUDIJSKI PROGRAM\\ PRVE STOPNJE\\ RAČUNALNIŠTVO IN INFORMATIKA}\par}%
- UNIVERZITETNI  ŠTUDIJSKI PROGRAM\\ PRVE STOPNJE\\ RAČUNALNIŠTVO IN INFORMATIKA}\par}%
+ {\autfont Tim Thuma (63230333), Tilen Medved (63230207), Luka Hribar (63230109) \par}%
+ {\titfont Frodo's Nightmares \par}%
+ {\vskip 3em \textsc{SEMINARSKA NALOGA\\[5mm]         % dodal Solina za ostale študijske programe
+   VISOKOŠOLSKI STROKOVNI ŠTUDIJSKI PROGRAM\\ PRVE STOPNJE\\ RAČUNALNIŠTVO IN INFORMATIKA}\par}%
+%  UNIVERZITETNI  ŠTUDIJSKI PROGRAM\\ PRVE STOPNJE\\ RAČUNALNIŠTVO IN INFORMATIKA}\par}%
 %    INTERDISCIPLINARNI UNIVERZITETNI\\ ŠTUDIJSKI PROGRAM PRVE STOPNJE\\ RAČUNALNIŠTVO IN MATEMATIKA}\par}%
 %    INTERDISCIPLINARNI UNIVERZITETNI\\ ŠTUDIJSKI PROGRAM PRVE STOPNJE\\ UPRAVNA INFORMATIKA}\par}%
 %    INTERDISCIPLINARNI UNIVERZITETNI\\ ŠTUDIJSKI PROGRAM PRVE STOPNJE\\ MULTIMEDIJA}\par}%
  \vfill\null%
- {\large \textsc{Mentor}: doc.\ dr.  Peter Klepec\par}%
-{\large \textsc{Somentor}:  izr.\ prof.\ dr. Martin Krpan \par}%
- {\vskip 2em \large Ljubljana, 2016 \par}%
+ {\large \textsc{Mentor}: izr. prof. dr. Iztok Lebar Bajec \par}%
+ {\vskip 2em \large Ljubljana, januar 2025 \par}%
 \end{center}
 
+
+
+\thispagestyle{empty}
 
 % Abstract section
 \section*{\textit{Abstract}}
