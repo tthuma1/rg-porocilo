@@ -234,6 +234,8 @@ Za boljšo učinkovitost v grafični cevovod pošljemo samo oglišča modelov, k
 \section{Pogled}
 \noindent Za pogled v svet smo uporabili kamero s perspektivno projekcijo. Kamera je tretjeosebna in je postavljena tako, kot da bi gledala skozi enega izmed zidov. Ko se igralec premakne, se nad kamero izvede enaka translacija, kot nad igralcem.
 
+Po tem ko igralec pobere ključ, je kamera nekaj časa animirana, da igralec vidi, da so se odprla vrata, ki sicer niso vidna na zaslonu.
+
 \newpage
 
 % Osebek section
@@ -245,7 +247,8 @@ Ko se Frodo premika, se njegovo telo animira. Animacije so izvedene tako, da je 
 
 % Uporabniški vmesnik section
 \section{Uporabniški vmesnik}
-\noindent OPIŠ  START SCREEN AND END SCREEN
+\noindent Preden se igra začne, se uporabniku prikaže znak za nalaganje, ki izgine, ko se v celoti scena naloži. Na prvi strani ima na voljo gumb, ki začne igro. Ko je igra zaključena, se uporabniku prikaže stran, na kateri piše, koliko časa je igralec porabil in gumb za začetek nove igre
+
 
 \newpage
 
@@ -256,13 +259,14 @@ Ko se Frodo premika, se njegovo telo animira. Animacije so izvedene tako, da je 
 V drugi sobi se nahaja ograja, ki jo igralec odpre tako, da klikne na model gumba, ki je na steni. Zaznavanje gumba je izvedeno tako, da se iz mesta na zaslon, kamor je igralec kliknil, sledi žarek na sceno. Če ta žarek seka AABB gumba, se smatra, daje bil gumb pritisnjen in ograja se odpre.
 
 \section{Luči}
-TUKAJ OPIŠI SHADERJE
+V sceni so štiri luči. Prva je petrolejka, ki je izvedena kot točkovni vir svetlobe in oddaja ognjeno barvo. Njena intenziteta se rahlo spreminja s časom, kot da bi se plamen v njej premikal. Druga luč je ročna svetilka, ki je izvedena kot reflektorska luč bele barve. Prehod med osvetljenim in neosvetljenim delom je gladek, kar je izvedeno s smoothstep funkcijo v WGSL. Potem pa imamo še dve točkovni luči, ki osvetljujeta vrata. Te dve luči se prižgeta, ko se začne animirana kamera.
+Za osvetlitveni model smo izvedli Blinn-Phongov osvetlitveni model, ki nam omogoča izvedbo neidealnega odboja na določenih predmetih.
 
 \newpage
 
 % Zaključki in možne nadgradnje section
 \section{Zaključki in možne nadgradnje}
-\noindent Na začetku dela smo imeli v mislih več ugank, ampak smo se nato osredotočili samo na nekaj izbranih. Izgled igre bi lahko še izboljšali, če bi nam uspelo narediti mapiranje senc. Animacij s kostmi nam ni uspelo prenesti iz Blender-ja v WebGPU, tako da trenutne animacije ne izgledajo najbolj popolno. Lahko bi ji dodali tudi predele z animirano kamero, npr. Največ samostojnega dela smo imeli z izdelavo 3D modelov, saj nam je veliko kode za uporabo WebGPU napisal že asistent.
+\noindent Na začetku dela smo imeli v mislih več ugank, ampak smo se nato osredotočili samo na nekaj izbranih. Izgled igre bi lahko še izboljšali, če bi nam uspelo dodati sence v sistem osvetljevanja. Animacij s kostmi nam ni uspelo prenesti iz Blender-ja v WebGPU, tako da trenutne animacije ne izgledajo najbolj popolno. Največ samostojnega dela smo imeli z izdelavo 3D modelov, saj nam je veliko kode za uporabo WebGPU napisal že asistent.
 Gibanje kamere bi bilo lahko narejeno bolj gladko, tako da bi se kamera za igralcem premikala z zamikom.
 
  \newpage
