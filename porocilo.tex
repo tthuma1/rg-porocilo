@@ -18,8 +18,11 @@
 
 \usepackage{color}       % dodal Solina
 \usepackage{soul}       % dodal Solina
+\usepackage{indentfirst}
 
 \usepackage{graphicx}
+\usepackage[figurename=Slika]{caption}
+
 
 % Page setup
 \usepackage{geometry}
@@ -116,94 +119,106 @@
 \end{center}
 
 
-
 \newpage
-
-
-\thispagestyle{empty}
 
 \section*{\textit{Abstract}}
 
 \noindent V okviru seminarske naloge za predmet Računalniška grafika smo ustvarili igro ugankarskega žanra z naslovom Frodo’s Nightmares. Igra je napisana v programskem jeziku Javascript in za delovanje uporablja WebGPU vmesnik. Glavni osebek Frodo je postavljen v sceno hiše iz katere mora pobegniti tako, da rešuje uganke. Uganke so sestavljene iz različnih interakcij z objekti, postavljenimi po hiši, na koncu pa mora igralec pobrati ključ, ki odpre izhodna vrata. Scena je realistična, toda poenostavljena za lažje delo. Kamera na igralca gleda iz tretjeosebnega položaja in se premika skupaj s Frodom. Pri kameri gre za perspektivno projekcijo. V sceni je več luči, najpomembnejši pa sta petrolejka in ročna svetilka s katerima Frodo osvetljuje prostor okoli sebe. Za osvetlitev smo uporabili Blinn-Phongov osvetlitveni model. Gibanje Frodota je animirano tako, da se nad posameznimi deli telesa izvedejo ustrezne rotacije.
 
-
 \newpage
 
 \section{Pregled igre}
 
-\noindent Igralec se v igri znajde ujet v temni hiši sredi gozda, njegov namen pa je iz nje pobegniti. Na svoji poti mora reševati uganke, da na koncu pride do ključa, ki mu zagotovi izhod. Igra je ugankarskega žanra, vsaka uganka pa je toliko zahtevna, da je rešljiva v približno tridesetih sekundah.
-
+Igralec se v igri znajde ujet v hiši sredi gozda, njegov namen pa je iz nje pobegniti. Na svoji poti mora reševati uganke, da na koncu pride do ključa, ki mu zagotovi izhod. Igra je ugankarskega žanra, vsaka uganka pa je toliko zahtevna, da je rešljiva v približno tridesetih sekundah.
 
 \subsection{Opis sveta}
 Okolje v katerega je postavljen igralec je hiša, ki vsebuje različne predmete. Prvi predmeti s katerimi se sreča igralec so tla in stene hiše, ki omejujejo prostor, po katerem se igralec lahko premika. Stena, skozi katero gleda kamera, je samo simulirana, tako da igralec ne more pasti ven iz hiše. Igralec se lahko po hiši premika v treh dimenzijah in tako raziskuje, kakšne so možne interakcije z različnimi predmeti.
 
-Hiša ima dve nadstropji, ki so razdeljene na štiri sobe. V njej se nahajajo različni objekti s katerimi igralec lahko interaktira, nekateri pa so tam samo za okras.
+Hiša ima dve nadstropji, ki sta razdeljeni na štiri sobe. V njih se nahajajo različni objekti s katerimi igralec lahko interaktira, nekateri pa so tam samo za okras. Stil tekstur je realistečen, same modele pa smo poenostavili, da je delo z njimi lažje in hitrejše.
 
-Stil tekstur je realistečen, same modele pa smo seveda poenostavili, da je delo z njimi lažje in hitrejše. 
+\begin{figure}[!htb]
+    \begin{center}
+        \includegraphics[width=\columnwidth]{svet.jpg}
+        \caption{Celotna scena v Blenderju.}
+    \end{center}
+\end{figure}
+
+
+Nekaj objektov, ki so v igri smo dobili iz spleta, nekatere pa smo izdelali sami. Sami smo izdelali Frodota, stene, ograjo, lestev, ključ, petrolejko in trampolin. Kompleksnejše okraske kot so vaze in globus pa smo dobili s spleta\footnote{\url{https://www.cgtrader.com/3d-models/various/various-models/viking-pots-vases-low-poly-game-ready}} \footnote{\url{https://www.cgtrader.com/free-3d-models/interior/interior-office/low-poly-world-globe}}. Vse slikovne teksture kot so zid, kamen in les smo prav tako pridobili s spleta\footnote{\url{https://media.freestocktextures.com/cache/12/3e/123ef654c1c7e28fafaa983956e0509e.jpg}} \footnote{\url{https://pngtree.com/freebackground/wood-grain-texture-wooden-flooring-design-with-wooden-floor-textures_12863779.html}} \footnote{\url{https://img.pikbest.com/wp/202344/wood-surface-exterior-view-of-log-house-wall-textured-and-characterful-knots_9926058.jpg!bw700}}. Za 3D modeliranje smo uporabljali program Blender.
 
 
 \subsection{Ozadje}
-\noindent  V ozadju se nahaja gozd, ki je prikazan tako, kot da bi bila svetu orisana kocka, na katero je prilepljena tekstura gozda (skybox), ki smo jo našli na spletu\footnote{\url{https://www.pngwing.com/en/free-png-zlcpx}}. Hiša je obdana s tlemi, na katerih je tekstura z listi\footnote{\url{https://cdn.materialsoftheworld.com/wp-content/uploads/2022/05/28094405/materials-of-the-world-forest-ground-leaves-render-04.jpg}}. Ostali predmeti, ki spadajo v ozadje sveta so tudi stene hiše in različni okraski kot so vaze, globus\footnote{\url{https://www.cgtrader.com/free-3d-models/interior/interior-office/low-poly-world-globe}} in slike na stenah\footnote{\url{https://beks.pl/}}. Ko igralec pade na tla, se igra konča, saj je edini način, da to doseže tako, da gre skozi izhodna vrata, ki se odprejo, ko igralec pobere zadnji ključ.
+V ozadju se nahaja gozd, ki je prikazan tako, kot da bi bila svetu orisana kocka, na katero je prilepljena tekstura gozda (skybox), ki smo jo našli na spletu\footnote{\url{https://www.pngwing.com/en/free-png-zlcpx}}. Hiša je obdana s tlemi, na katerih je tekstura z listi\footnote{\url{https://cdn.materialsoftheworld.com/wp-content/uploads/2022/05/28094405/materials-of-the-world-forest-ground-leaves-render-04.jpg}}. Ostali predmeti, ki spadajo v ozadje sveta so tudi različni okraski kot so vaze, globus\footnote{\url{https://www.cgtrader.com/free-3d-models/interior/interior-office/low-poly-world-globe}} in slike na stenah\footnote{\url{https://beks.pl/}}.
 
-SLIKA SKYBOXA
+\begin{figure}[!htb]
+    \begin{center}
+        \includegraphics[width=0.8\columnwidth]{skybox.jpg}
+        \caption{Izgled skyboxa v igri.}
+    \end{center}
+\end{figure}
+
 
 V hišo smo dodali tudi kroglo, na katero se preslika skybox tekstura ozadja, tako da igralec lahko vidi, kakšno je vreme izven hiše.
 
-\begin{figure}[h!]
-    \centering
-    %\includegraphics[width=0.5\textwidth]{./slika.png}
-\end{figure}
-
 \subsection{Velikost}
-\noindent Igralec poleg Frodota vidi še njegovo neposredno okolico tako, da je njegov pogled na svet precej ozek. Frodo je velik približno 110 cm, kamera pa vidi približno 6 metrov širine okoli. Igralec interaktira z objekti, ki so približno polovični njegovi velikosti, sama hiša pa je dolga 20 m in široka 12 m.
-
-\subsection{Objekti}
-\noindent Nekaj objektov, ki so v igri smo dobili iz spleta, nekatere pa smo izdelali sami. Sami smo izdelali Frodota, stene, ograjo, lestev, ključ, petrolejko in trampolin. Kompleksnejše okraske kot so vaze in globus pa smo dobili iz spleta\footnote{\url{https://www.cgtrader.com/3d-models/various/various-models/viking-pots-vases-low-poly-game-ready}}\footnote{\url{https://www.cgtrader.com/free-3d-models/interior/interior-office/low-poly-world-globe}}. Vse slikovne teksture kot so zid, kamen in les smo pridobili s spleta\footnote{\url{https://media.freestocktextures.com/cache/12/3e/123ef654c1c7e28fafaa983956e0509e.jpg}}\footnote{\url{https://pngtree.com/freebackground/wood-grain-texture-wooden-flooring-design-with-wooden-floor-textures_12863779.html}}\footnote{\url{https://img.pikbest.com/wp/202344/wood-surface-exterior-view-of-log-house-wall-textured-and-characterful-knots_9926058.jpg!bw700}}. Objekt, ki ga igralec največ premika je Frodo, ki smo ga sami zmodelirali v Blender-ju. Ta pa v bližini drugih objektov lahko spreminja tudi njihovo stanje. Med te sodijo škatle, ki se lahko odpirajo oz. premikajo.
+Igralec poleg Frodota vidi še njegovo neposredno okolico. Frodo je velik približno 110 cm, kamera pa vidi približno 6 metrov širine okoli njega. Igralec interaktira z objekti, ki so približno polovični njegovi velikosti, sama hiša pa je dolga 20 m in široka 12 m.
 
 
 \section{Igralni pogon in uporabljene tehnologije}
-\noindent Za izdelavo igre smo uporabljali programski jezik Javascript in WebGPU vmensik. WebGPU nam omogoča, da pošiljamo podatke o mrežah modelov, teksturah, lučeh, kameri in ostalo v grafični cevovod. Te podatke nato obdelamo v senčilnikih, ki so napisani v jeziku WebGPU Shading Language (WGSL) in tako dobimo barve pikslov na zaslonu. Za 3D modeliranje smo uporabljali program Blender. Pri delu smo si pomagali še s knjižnico webgpu-utils in s primeri iz repozitorija webgpu-examples\footnote{\url{(https://github.com/UL-FRI-LGM/webgpu-examples}}.
-V Javascriptu na začetku igre naložimo vse potrebne 3D modele in pripravimo grafični cevovod. Nato pa se za vsako sličico (frame) kliče metoda render, ki ustrezno posodobi svet glede na trenutno stanje in vhode, ki jih je podal igralec.
+Za izdelavo igre smo uporabljali programski jezik Javascript in WebGPU vmensik. WebGPU nam omogoča, da podatke o mrežah modelov, teksturah, lučeh, kameri in ostalo pošiljamo v grafični cevovod. Te podatke nato obdelamo v senčilnikih, ki so napisani v jeziku WebGPU Shading Language (WGSL) in tako dobimo barve pikslov na zaslonu. Pri delu smo si pomagali s knjižnico webgpu-utils\footnote{\url{https://github.com/greggman/webgpu-utils}} in s primeri iz repozitorija webgpu-examples\footnote{\url{https://github.com/UL-FRI-LGM/webgpu-examples}}.
 
-Za zaznavanje trkov uporabljamo "axis aligned bound box"-e (AABB). Torej za vsak predmet, v katerega se lahko zaletiš izračunamo maksimalne in minimalne točke v vsaki osi in potem na vsako sličico preverjamo ali se je uporabnik zaletel. Če se je, ga premaknemo za toliko v vsaki smeri, da ni več v trku.
+V Javascriptu na začetku igre naložimo vse potrebne 3D modele in pripravimo grafični cevovod. Nato se za vsako sličico (frame) kliče metoda "render", ki ustrezno posodobi svet glede na trenutno stanje in vhode, ki jih je podal igralec.
 
-Zaznavanje gumba je izvedeno tako, da se iz mesta na zaslon, kamor je igralec kliknil, sledi žarek na sceno. Če ta žarek seka AABB gumba, se smatra, daje bil gumb pritisnjen in ograja se odpre.
+Da ne pride do popačenosti tekstur, se z uporabo WebGPU ob nalaganju tekstur ustvarijo še mip map nivoji, kjer je dimenzija vsakega višjega nivoja enaka polovici prejšnjega. Za pravilno implementacijo trilinearne interpolacije smo si pomagali s knjižnico webgpu-utils.
 
-Za boljšo učinkovitost v grafični cevovod pošljemo samo oglišča modelov, ki so dejansko vidni na zaslonu. To pomeni, da na CPU predčasno izračunamo, kateri AABB-i so v vidnem polju kamere. Na žalost to nima nobenega izmerljivega vpliva na hitrost delovanja.
+Za zaznavanje trkov uporabljamo "axis aligned bound box"-e (AABB). Torej za vsak predmet, v katerega se lahko zaletiš izračunamo maksimalne in minimalne točke na vsaki osi in potem za vsako sličico preverjamo ali se je uporabnik zaletel. Če se je, ga premaknemo za toliko v vsaki smeri, da ni več v trku.
 
-Da ne pride do popačenosti tekstur, se z uporabo WebGPU ob nalaganju tekstur ustvarijo še mip map nivoji, kjer je dimenzija vsakega višjega nivoja enaka polovici prejšnjega. Za pravilno implementacijo trilinearne interpolacije smo si pomagali s knjižnico webgpu-utils\footnote{\url{https://github.com/greggman/webgpu-utils}}.
+V drugi sobi mora igralec z miško klikniti na model gumba v sceni. Zaznavanje, če je bil gumb pritisnjen, je izvedeno tako, da se iz mesta na zaslon, kamor je igralec kliknil, sledi žarek na sceno. Za sledenje žarka moramo koordinate klika pretvoriti iz koordinatnega sistema zaslona v koordinatni sistem sveta. Če ta žarek seka AABB gumba, se smatra, da je bil gumb pritisnjen.
+
+Za boljšo učinkovitost v grafični cevovod pošljemo samo oglišča modelov, ki so dejansko vidni na zaslonu. To pomeni, da na CPU predčasno izračunamo, kateri AABB-ji so v vidnem polju kamere. Na žalost to nima nobenega izmerljivega vpliva na hitrost delovanja, saj je naša scena premajhna.
 
 \section{Pogled}
-\noindent Za pogled v svet smo uporabili kamero s perspektivno projekcijo. Kamera je tretjeosebna in je postavljena tako, kot da bi gledala skozi enega izmed zidov. Ko se igralec premakne, se nad kamero izvede enaka translacija, kot nad igralcem.
+Za pogled v svet smo uporabili kamero s perspektivno projekcijo. Kamera je tretjeosebna in je postavljena tako, kot da bi gledala skozi enega izmed zidov. Ko se igralec premakne, se nad kamero izvede enaka translacija, kot nad igralcem.
 
-Po tem ko igralec pobere ključ, je kamera nekaj časa animirana, da igralec vidi, da so se odprla vrata, ki sicer niso vidna na zaslonu.
-
+Po tem ko igralec pobere ključ, je kamera nekaj časa animirana, da igralec lahko vidi, katera vrata so se odprla.
 
 \section{Osebek}
-\noindent Glavni osebek v igri je Frodo, ki ga igralec upravlja s tipkami W (naprej), A (levo), S (dol), D (desno) in presledek (skok). Nad njim ves čas deluje gravitacija s pospeškom 20 m/s2. Frodo v roki drži luč. Tip luči lahko zamenjamo s tipko Q. Možni luči sta petrolejka, ki oddaja rdečo točkovno svetlobo in ročna svetilka, ki oddaja belo reflektorsko svetlobo. Ko se Frodo dovolj približa izbranim škatlam, z njimi interaktira s tipko E. Ta lahko odpre škatlo ali pa jo premakne.
-Ko se Frodo premika, se njegovo telo animira. Animacije so izvedene tako, da je njegovo telo razsekano na različne dele, ki se rotirajo s kvadratnim lajšanjem hitrosti. Prav tako je animirano odpiranje vrat in vsakič, ko igralec pobere ključ se animira kamera tako, da pokaže, katera vrata so se ravnokar odprla.
-
-\section{Uporabniški vmesnik}
-\noindent Preden se igra začne, se uporabniku prikaže znak za nalaganje, ki izgine, ko se v celoti scena naloži. Na prvi strani ima na voljo gumb, ki začne igro. Ko je igra zaključena, se uporabniku prikaže stran, na kateri piše, koliko časa je igralec porabil in gumb za začetek nove igre
-
-
+ Glavni osebek v igri je Frodo, ki ga igralec upravlja s tipkami W (naprej), A (levo), S (dol), D (desno) in presledek (skok). Nad njim ves čas deluje gravitacija s pospeškom 20 \(m/s^{2} \). Frodo v roki drži luč, katere tip se lahko zamenja s tipko Q. Ko se Frodo dovolj približa izbranim škatlam, z njimi interaktira s tipko E. Ta lahko odpre škatlo ali pa jo premakne.
+Ko se Frodo premika, se njegovo telo animira. Animacije so izvedene tako, da je njegovo telo razsekano na različne dele, ki se rotirajo s kvadratnim lajšanjem hitrosti.
 
 \section{Gameplay}
-Igra se začne v zgornjem nadstropju hiše. Tam se igralec spozna s tipkami za interakcijo in vidi prve okraske. V tem nadstropju se nahaja tudi platforma, ki se podre, ko igralec stopi nanjo. Nato pride v prvo nadstropje, kjer se nahajajo tri ključne sobe.
+Igra se začne v zgornjem nadstropju hiše. Tam se igralec spozna s tipkami za interakcijo in vidi prve okraske. V tem nadstropju se nahaja tudi platforma, ki se podre, ko igralec stopi nanjo. Nato pride v prvo nadstropje, kjer se nahajajo tri sobe.
 
- V prvi sobi so postavljene škatle, ki jih igralec lahko odpira in ko odpre pravo škatlo, dobi petrolejko in odprejo se mu vrata v naslednjo sobo. Tam se nahajajo škatla, globus, ograja in gumb za nadzor ograje. Igralec mora pritisniti na gumb, ki odpre ograjo in povleči škatlo, da lahko preskoči zid do naslendje sobe. V tretji sobi se nahaj prvi ključ, do katerega pride tako, da postavi razmetane kocke na označeno mesto, kar povzroči, da se aktivira platforma, ki preko trampolina vodi do ključa. Nato lahko pride v zadnjo sobo, kjer igralca čakata še lestev in zadnji ključ.
+ V prvi sobi so postavljene škatle, ki jih igralec lahko odpira. Ko odpre pravo škatlo, dobi petrolejko in odprejo se mu vrata v naslednjo sobo. Tam se nahajajo škatla, globus, ograja in gumb za nadzor ograje. Igralec mora z miško pritisniti na gumb, ki odpre ograjo in povleči škatlo, da lahko preskoči zid do naslendje sobe. V tretji sobi se nahaja prvi ključ, do katerega pride tako, da postavi razmetane kocke na označeno mesto, kar povzroči, da se aktivira platforma, ki preko trampolina vodi do ključa. Nato lahko pride v zadnjo sobo, kjer igralca čakata še lestev in zadnji ključ.
  
+Ko igralec pade na tla izven hiše (torej gre skozi izhodna vrata), se igra konča.
+
+
+\begin{figure}[!htb]
+    \begin{center}
+        \includegraphics[width=0.9\columnwidth]{prva.jpg}
+        \caption{Igra po končani prvi sobi spodnjega nadstropja.}
+    \end{center}
+\end{figure}
+
+\begin{figure}[!htb]
+    \begin{center}
+        \includegraphics[width=0.9\columnwidth]{druga.jpg}
+        \caption{Tretja soba z rešeno uganko in ročno svetilko kot lučjo.}
+    \end{center}
+\end{figure}
+
+\newpage
 
 \section{Luči}
-V sceni so štiri luči. Prva je petrolejka, ki je izvedena kot točkovni vir svetlobe in oddaja ognjeno barvo. Njena intenziteta se rahlo spreminja s časom, kot da bi se plamen v njej premikal. Druga luč je ročna svetilka, ki je izvedena kot reflektorska luč bele barve. Prehod med osvetljenim in neosvetljenim delom je gladek, kar je izvedeno s smoothstep funkcijo v WGSL. Potem pa imamo še dve točkovni luči, ki osvetljujeta vrata. Te dve luči se prižgeta, ko se začne animirana kamera.
+V sceni so štiri luči. Prva je petrolejka, ki je izvedena kot točkovni vir svetlobe in oddaja oranžno barvo. Njena intenziteta se rahlo spreminja s časom, kot da bi se plamen v njej premikal. Druga luč je ročna svetilka, ki je izvedena kot reflektorska luč bele barve. Prehod med osvetljenim in neosvetljenim delom je gladek, kar je izvedeno s smoothstep funkcijo v WGSL. Potem pa imamo še dve točkovni luči, ki osvetljujeta vrata. Te dve luči se prižgeta, ko se začne animirana kamera.
 Za osvetlitveni model smo izvedli Blinn-Phongov osvetlitveni model, ki nam omogoča izvedbo neidealnega odboja na določenih predmetih.
 
 \section{Glasba}
 V ozadju se ves čas pretvarja glasba, ki smo jo vzeli iz Youtube-ove glasbene knjižnice\footnote{\url{https://www.youtube.com/audiolibrary}}. Različni zvoki se predvajajo tudi, ko hodiš, skočiš in pobereš ključ. Tudi te smo vzeli s spleta\footnote{\url{https://www.zapsplat.com}}.
 
 \section{Zaključki in možne nadgradnje}
-\noindent Na začetku dela smo imeli v mislih več ugank, ampak smo se nato osredotočili samo na nekaj izbranih. Izgled igre bi lahko še izboljšali, če bi nam uspelo dodati sence v sistem osvetljevanja. Animacij s kostmi nam ni uspelo prenesti iz Blender-ja v WebGPU, tako da trenutne animacije ne izgledajo najbolj popolno. Največ samostojnega dela smo imeli z izdelavo 3D modelov, saj nam je veliko kode za uporabo WebGPU napisal že asistent.
-Gibanje kamere bi bilo lahko narejeno bolj gladko, tako da bi se kamera za igralcem premikala z zamikom.
+Na začetku dela smo imeli v mislih več ugank, ampak smo se nato osredotočili samo na nekaj izbranih. Izgled igre bi lahko še izboljšali, če bi nam uspelo dodati sence v sistem osvetljevanja. Animacij s kostmi nam ni uspelo prenesti iz Blender-ja v WebGPU, tako da trenutne animacije ne izgledajo najbolj popolno. Gibanje kamere bi bilo lahko narejeno bolj gladko, tako da bi se kamera za igralcem premikala z zamikom.
 
 
 
