@@ -26,7 +26,7 @@
 % Page setup
 \usepackage{geometry}
 
-% \geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
 
 % Title and author setup
 \title{\vspace{-4cm}Seminarska naloga za Računalniško grafiko\\[0.5cm] \huge \textbf{Frodo's Nightmares} \vspace{-1cm}}
@@ -151,9 +151,9 @@
  {\large\sc Univerza v Ljubljani\\%
    Fakulteta za računalništvo in informatiko}%
  \vskip 10em%
- {\autfont Tim Thuma (63230333), Tilen Medved (63230207), Luka Hribar (63230109) \par}%
- {\titfont Frodo's Nightmares \par}%
- {\vskip 3em \textsc{SEMINARSKA NALOGA\\[5mm]         % dodal Solina za ostale študijske programe
+ {\autfont Tim Thuma (63230333), Tilen Medved (63230207),\\Luka Hribar (63230109) \par}%
+ {\vskip 1em \titfont Frodo's Nightmares \par}%
+ {\vskip 3em \textsc{SEMINARSKA NALOGA PRI PREDMETU RAČUNALNIŠKA GRAFIKA\\[5mm]         % dodal Solina za ostale študijske programe
    VISOKOŠOLSKI STROKOVNI ŠTUDIJSKI PROGRAM\\ PRVE STOPNJE\\ RAČUNALNIŠTVO IN INFORMATIKA}\par}%
 %  UNIVERZITETNI  ŠTUDIJSKI PROGRAM\\ PRVE STOPNJE\\ RAČUNALNIŠTVO IN INFORMATIKA}\par}%
 %    INTERDISCIPLINARNI UNIVERZITETNI\\ ŠTUDIJSKI PROGRAM PRVE STOPNJE\\ RAČUNALNIŠTVO IN MATEMATIKA}\par}%
@@ -174,70 +174,108 @@
 % Abstract section
 \section*{\textit{Abstract}}
 
-\noindent Here you can write the abstract of your work. This should give a concise summary of your research, game design, and findings.
+\noindent V okviru seminarske naloge za predmet Računalniška grafika smo ustvarili igro ugankarskega žanra z naslovom Frodo’s Nightmares. Igra je napisana v programskem jeziku Javascript in za delovanje uporablja WebGPU vmesnik. Glavni osebek Frodo je postavljen v sceno hiše iz katere mora pobegniti tako, da rešuje uganke. Uganke so sestavljene iz različnih interakcij z objekti, postavljenimi po hiši, na koncu pa mora igralec pobrati ključ, ki odpre izhodna vrata. Scena je realistična, toda poenostavljena za lažje delo. Kamera na igralca gleda iz tretjeosebnega položaja in se premika skupaj s Frodom. Pri kameri gre za perspektivno projekcijo. V sceni sta dve luči - “lantern”, ki oddaja rdečo točkovno svetlobo in “flashlight”, ki oddaja belo reflektorsko svetlobo. Za osvetlitev smo uporabili Blinn-Phongov osvetlitveni model. Gibanje Frodota je animirano z linearnimi animacijami.
+
 
 \newpage
 
 % Pregled igre section
 \section{Pregled igre}
 
+\noindent Igralec se v igri znajde ujet v temni hiši sredi gozda, njegov namen pa je iz nje pobegniti. Na svoji poti mora reševati uganke, da na koncu pride do ključa, ki mu zagotovi izhod. Igra je ugankarskega žanra, vsaka uganka pa je toliko zahtevna, da je rešljiva v približno tridesetih sekundah.
+
+
 \subsection{Opis sveta}
-\noindent This section contains the description of the game world.
+\noindent Okolje v katerega je postavljen igralec je hiša, ki vsebuje različne predmete. To vključuje škatle, vrata, trampolin, okraske in podobno. Igralec se lahko po hiši premika v treh dimenzijah in tako raziskuje, kakšne so možne interakcije z različnimi predmeti. Hiša se nahaja v gozdu, ki je prikazan s skybox ozadjem, torej okoli sveta je orisana kocka, ki je enakih dimenzij kot zaslon (TO NEVEM ČE JE ČIST RES).
+Stil tekstur je realistečen, same modele pa smo seveda poenostavili, da je delo z njimi lažje in hitrejše.
 
 \subsection{Pregled}
-\noindent Here you can describe an overview of the game.
+Prvi predmeti s katerim se sreča igralec so tla in stene hiše, ki omejuje prostor, po katerem se igralec lahko premika. Stena, skozi katero gleda kamera, je samo simulirana, tako da igralec ne more pasti ven iz hiše. Hiša ima dve nadstropji in igralec začne v zgornjem nadstropju. Tam se spozna s tipkami za interakcijo in vidi prve okraske. V tem nadstropju se nahaja tudi platforma, ki se podre, ko igralec stopi nanjo. Nato pride v prvo nadstropje, kjer se nahajajo tri ključne sobe.
+
+ V prvi sobi so postavljene škatle, ki jih igralec lahko odpira in ko odpre pravo škatlo, dobi petrolejko in odprejo se mu vrata v naslednjo sobo. Tam se nahaja še ena škatla, globus, ograja in gumb za nadzor ograje. Ko igralec reši to uganko, pride v tretjo sobo, kjer se nahaj prvi ključ, do njega pa pride preko interakcije s še več kockami, trampolinom in premikajočo platformo. V zadnji sobi pa igralca čaka še lestev in zadnji ključ.
+ 
+Da ne pride do popačenosti tekstur, se z uporabo WebGPU ob nalaganju tekstur ustvarijo še mip map nivoji, kjer je dimenzija vsakega višjega nivoja enaka polovici prejšnjega. Za pravilno implementacijo trilinearne interpolacije smo si pomagali s knjižnico webgpu-utils\footnote{\url{https://github.com/greggman/webgpu-utils}}.
+
 
 \subsection{Ozadje}
-\noindent This is the background of the game. You can insert an image here:
+\noindent  V ozadju se nahaja gozd, kar je izvedeno s skybox teksturo, ki smo jo našli na spletu (https://www.pngwing.com/en/free-png-zlcpx).
+
+SLIKA SKYBOXA
+
+Ozadje pa seveda ni velikokrat vidno, saj večino zaslona zasedajo zidovi. V hišo smo dodali tudi kroglo, na katero se preslika tekstura ozadja, tako da igralec lahko vidi, kakšno je vreme izven hiše. V hiši se nahajajo tudi različni okraski, s katerimi igralec ne more interaktirati. Sem spadajo …
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth]{./slika.png}
+    %\includegraphics[width=0.5\textwidth]{./slika.png}
 \end{figure}
 
 \subsection{Ključne lokacije}
-\noindent Describe the key locations within the game world here.
+TO ZDRUŽI S “PREGLED”
+\noindent Svet je razdeljen na več sob, med katerimi igralec prehaja, ko rešuje uganke. Ciljna lokacija je izhod skozi zadnja vrata, ki se odprejo, ko igralec na eni izmed platform pobere ključ.
+
 
 \subsection{Velikost}
-\noindent Discuss the size of the game world or levels.
+\noindent Igralec poleg Frodota vidi še njegovo neposredno okolico tako, da je njegov pogled na svet precej ozek. Igralec interaktira z objekti, ki so približno polovični njegovi velikosti, sama hiša pa ja velika toliko, da se jo da po dolžini prehoditi v nekaj deset sekundah.
 
 \subsection{Objekti}
-\noindent Describe the main objects or elements in the game.
+\noindent Vse slikovne teksture kot so zid, kamen in les smo pridobili s spleta (LINKS). Objekt, ki ga igralec največ premika je Frodo, ki smo ga sami zmodelirali v Blender-ju. Ta pa v bližini drugih objektov lahko spreminja tudi njihovo stanje. Med te sodijo škatle, ki se lahko odpirajo oz. premikamo. Frodo v roki po končanem prvem nivoju drži svetilko iz katere sveti luč, na koncu pa ga čaka ključ. Da pride do ključa mora uporabiti trampolini, ki ga odrine dovolj visoko, da lahko pristane na končni platformi. Tudi te modele smo naredili sami.
+
 
 \newpage
 
 % Igralni pogon section
 \section{Igralni pogon}
-\noindent This section describes the game engine used, its features, and how it supports the gameplay.
+\noindent Za izdelavo igre smo uporabljali programski jezik Javascript in WebGPU vmensik. WebGPU nam omogoča, da pošiljamo podatke o mrežah modelov, teksturah, lučeh, kameri in ostalo v grafični cevovod. Te podatke nato obdelamo v senčilnikih, ki so napisani v jeziku WebGPU Shading Language (WGSL) in tako dobimo barve pikslov na zaslonu. Za 3D modeliranje smo uporabljali program Blender. Pri delu si nismo pomagali z nobeno drugo knjižnico oziroma ogrodjem, smo si pa kar precej pomagali s primeri iz repozitorija webgpu-examples (https://github.com/UL-FRI-LGM/webgpu-examples).
+V Javascriptu na začetku igre naložimo vse potrebne 3D modele in pripravimo grafični cevovod. Nato pa se za vsako sličico (frame) kliče metoda render, ki ustrezno posodobi svet glede na trenutno stanje in vhode, ki jih je podal igralec.
+
 
 \newpage
 
 % Pogled section
 \section{Pogled}
-\noindent This section describes the perspective or camera view in the game.
+\noindent Za pogled v svet smo uporabili kamero s perspektivno projekcijo. Kamera je tretjeosebna in je postavljena tako, kot da bi gledala skozi enega izmed zidov. Ko se igralec premakne, se nad kamero izvede enaka translacija, kot nad igralcem.
 
 \newpage
 
 % Osebek section
 \section{Osebek}
-\noindent Here you describe the protagonist or main character of the game.
+\noindent Glavni osebek v igri je Frodo, ki ga igralec upravlja s tipkami W (naprej), A (levo), S (dol), D (desno) in presledek (skok). Nad njim ves čas deluje gravitacija s pospeškom 20 m/s2. Frodo v roki drži luč. Tip luči lahko zamenjamo s tipko Q. Možni luči sta “lantern”, ki oddaja rdečo točkovno svetlobo in “flashlight”, ki oddaja belo reflektorsko svetlobo. Ko se Frodo dovolj približa izbranim škatlam, z njimi interaktira s tipko E. Ta lahko odpre škatlo ali pa jo premakne. Ko se Frodo premika, se njegovo telo animira z linearnimi animacijami. Prav tako je animirano odpiranje vrat.
 
 \newpage
 
 % Uporabniški vmesnik section
 \section{Uporabniški vmesnik}
-\noindent This section describes the user interface of the game, how the user interacts with it, and any menus or controls.
+\noindent OPIŠ  START SCREEN AND END SCREEN
 
 \newpage
 
 % Gameplay section
 \section{Gameplay}
-\noindent Here you can describe the gameplay mechanics, objectives, challenges, and how players interact with the game world.
+\noindent Igra se začne v prvi sobi, kjer je postavljenih šest škatel, v eni izmed njih pa se nahaja luč. Igralec odpira te škatle in ko najde luč, se mu odprejo vrata do naslednje sobe. Tam mora na ustrezno mesto prestaviti novo škatlo, da lahko preskoči zid in pride do zadnje sobe. Tam se najprej sreča z uganko, kjer rabi razmetane škatle postaviti na ustrezno označeno mesto, nato pa z uporabo trampolina skoči do ključa, ki mu odpre vrata, da gre lahko ven. S tem igro premaga in na zaslonu se mu izpiše, koliko časa je porabil za reševanje
+
+\section{Luči}
+TUKAJ OPIŠI SHADERJE
 
 \newpage
 
 % Zaključki in možne nadgradnje section
 \section{Zaključki in možne nadgradnje}
-\noindent Conclude your work here, and suggest possible improvements or upgrades for the game.
+\noindent Na začetku dela smo imeli v mislih več ugank, ampak smo se nato osredotočili samo na nekaj izbranih. Izgled igre bi lahko še izboljšali, če bi nam uspelo narediti mapiranje senc. Animacij s kostmi nam ni uspelo prenesti iz Blender-ja v WebGPU, tako da trenutne animacije ne izgledajo najbolj popolno. Lahko bi ji dodali tudi predele z animirano kamero, npr. Največ samostojnega dela smo imeli z izdelavo 3D modelov, saj nam je veliko kode za uporabo WebGPU napisal že asistent.
+
+ \newpage
+ 
+ TO NEVEM U KERO POGLAVJE SE DA
+
+Preden se igra začne, se igralec najprej seznani z gumbi, ki jih bo uporabljal med igro (TO SE ŠE DODA). To je izvedeno kar s HTML elementi in se skrije, ko se igra začne. Na koncu igre igralec vidi, koliko časa je porabil za igranje in ima na voljo ponoviti igro.
+
+Frustum culling - iz okoli 200 modelov na render do okoli 60. Se sicer ne pozna med samim izrisom, ampak je hitrejši loading time, ker node shrani v this.gpuObjects šele, ko ga res rabi. Ni pa izmerljive razlika, ker je naša scena dovolj majhna.
+
+
+Background music: yt audio library
+
+Webgpu-utils: https://github.com/greggman/webgpu-utils
+
+
+
 
 \end{document}
